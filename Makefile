@@ -10,7 +10,11 @@ MANYLINUX_IMAGE_686=quay.io/pypa/manylinux1_i686
 all:    local
 
 local:
-	${PYTHON} setup.py build_ext --inplace
+	${PYTHON} setup.py --verbose build_ext \
+	--include-dirs ${PYTHON_ROOT}/include/python${PYTHON_VERSION}m \
+	--library-dirs ${PYTHON_ROOT}/lib \
+	-lpython${PYTHON_VERSION}m \
+	--inplace
 
 sdist: dist/$(PACKAGENAME)-$(VERSION).tar.gz
 

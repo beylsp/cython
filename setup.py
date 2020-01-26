@@ -61,6 +61,8 @@ setup_args['package_data'] = {
 # specific to setup
 setuptools_extra_args = {}
 
+extra_link_args = ['-shared']
+
 if 'setuptools' in sys.modules:
     setuptools_extra_args['python_requires'] = PYTHON_REQUIRES
     setuptools_extra_args['zip_safe'] = False
@@ -150,6 +152,7 @@ def compile_cython_modules(profile=False, compile_more=False, cython_with_refnan
         extensions.append(Extension(
             module, sources=[pyx_source_file],
             define_macros=defines_for_module,
+            extra_link_args=extra_link_args,
             depends=dep_files))
         # XXX hack around setuptools quirk for '*.pyx' sources
         extensions[-1].sources[0] = pyx_source_file
